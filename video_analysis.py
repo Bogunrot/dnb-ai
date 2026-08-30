@@ -15,7 +15,7 @@ import shutil
 import subprocess
 import tempfile
 import uuid
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -130,7 +130,7 @@ async def _process(job_id: str, payload: bytes, suffix: str, transcript: str) ->
             handle.write(payload)
             handle.flush()
             result = await asyncio.to_thread(analyze_video, Path(handle.name), transcript)
-        _jobs[job_id].update(status="completed", result=result, completed_at=datetime.now(UTC).isoformat())
+        _jobs[job_id].update(status="completed", result=result, completed_at=datetime.now(timezone.utc).isoformat())
     except Exception as error:  # keep job failures observable to clients
         _jobs[job_id].update(status="failed", error=str(error))
 
@@ -152,7 +152,7 @@ async def submit_video_analysis(
         "id": job_id,
         "status": "queued",
         "filename": file.filename,
-        "created_at": datetime.now(UTC).isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
     }
     background_tasks.add_task(_process, job_id, payload, suffix, transcript)
     return {"job_id": job_id, "status": "queued", "poll_url": f"/video-analysis/jobs/{job_id}"}

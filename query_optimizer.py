@@ -658,4 +658,4 @@ def _classify_relationship(a: AyahText, b: AyahText, jaccard: float, topic_overl
     contrast = {"but", "however", "yet", "while", "whereas", "except", "without"}
     example = {"example", "like", "likeness", "parable", "similitude"}
     if topic_overlap >= 0.65 and jaccard >= 0.25:
-        return "parallel_teaching
+        return "parallel_teaching"

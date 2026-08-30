@@ -92,6 +92,7 @@ from memory.extraction import (
     summarize_conversation_turns,
 )
 from misinformation_api import router as misinformation_router
+from scholarly_attribution_api import router as scholarly_attribution_router
 from model_router import router as model_routing_router
 from page_analysis import router as page_analysis_router
 from query_optimizer import router as query_optimizer_router
@@ -305,6 +306,8 @@ app.include_router(video_analysis_router)
 app.include_router(arabic_dialect_router)
 # Religious misinformation flagging: detection, correction, and blocking of misinformation
 app.include_router(misinformation_router)
+# Scholarly attribution validation: prevent fabricated/misattributed scholarly opinions
+app.include_router(scholarly_attribution_router)
 
 from adhkar import corpus as adhkar_corpus
 

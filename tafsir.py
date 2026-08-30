@@ -323,7 +323,8 @@ def _build_relationship_graph() -> RelationshipGraph:
     for source, target, rel_type, strength, note in seeds.get("explicit_relationships", []):
         graph.add_relationship(source, target, rel_type, strength, scholarly_note=note)
 
-    for source, target in _CONTRAST_PAIRS
+    for source, target in _CONTRAST_PAIRS:
+        pass  # contrast pairs are used for tafsir diversity detection
 
 # ---------------------------------------------------------------------------
 # Tafsir registry
